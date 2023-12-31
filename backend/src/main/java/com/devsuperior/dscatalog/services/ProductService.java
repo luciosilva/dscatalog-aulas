@@ -64,18 +64,18 @@ public class ProductService {
 		}
 	}
 
-	@Transactional(propagation = Propagation.SUPPORTS)
-	public void delete(Long id) {
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
 		if (!repository.existsById(id)) {
-			throw new ResourceNotFoundException("Id not found " + id);
+			throw new ResourceNotFoundException("Recurso não encontrado");
 		}
 		try {
-			repository.deleteById(id);
+            repository.deleteById(id);
 		}
-		catch (DataIntegrityViolationException e) {
-			throw new DatabaseException("Integrity violation");
-		}
-	}
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
+    }
 
 	private void copyDtoToEntity(ProductDTO dto, Product entity) {
 
